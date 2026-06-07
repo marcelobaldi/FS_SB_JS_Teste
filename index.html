@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><body>
+
+    <form id="f">
+        <input id="d" placeholder="Descricao">
+        <input id="v" placeholder="Valor">
+        <button>Salvar</button>
+    </form>
+
+    <script>
+        document.getElementById('f').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await fetch("https://supabase.co", {
+                method: 'POST',
+                headers: {
+                    'apikey': "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
+                    'Authorization': "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    descricao: document.getElementById('d').value,
+                    valor: parseFloat(document.getElementById('v').value)
+                })
+            });
+            alert("Salvo!");
+        });
+    </script>
+
+</body></html>
+
+
+
+
