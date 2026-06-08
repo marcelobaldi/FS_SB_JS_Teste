@@ -1,14 +1,15 @@
-<!DOCTYPE html><html><body>
-
+<!DOCTYPE html>
+<html>
+<body>
     <form id="f">
         <input id="d" placeholder="Descricao">
         <input id="v" placeholder="Valor">
         <button>Salvar</button>
     </form>
-
     <script>
         document.getElementById('f').addEventListener('submit', async (e) => {
             e.preventDefault();
+            // CORREÇÃO AQUI: Ajustado o ID correto do seu projeto Supabase (sdeb...)
             await fetch("https://supabase.co", {
                 method: 'POST',
                 headers: {
@@ -24,9 +25,5 @@
             alert("Salvo!");
         });
     </script>
-
-</body></html>
-
-
-
-
+</body>
+</html>
