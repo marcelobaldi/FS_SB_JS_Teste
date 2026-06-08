@@ -9,13 +9,12 @@
     <script>
         document.getElementById('f').addEventListener('submit', async (e) => {
             e.preventDefault();
-            // CORREÇÃO AQUI: Ajustado o ID correto do seu projeto Supabase (sdeb...)
             await fetch("https://supabase.co", {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'apikey': "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
-                    'Authorization': "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
-                    'Content-Type': 'application/json'
+                    "apikey": "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
+                    "Authorization": "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     descricao: document.getElementById('d').value,
@@ -27,3 +26,4 @@
     </script>
 </body>
 </html>
+
