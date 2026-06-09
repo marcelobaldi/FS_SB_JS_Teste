@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <form id="f">
-        <input id="d" placeholder="Descricao">
-        <input id="v" placeholder="Valor">
-        <button>Salvar</button>
+<!DOCTYPE html><html><body>
+    <!-- Programação:  HTML, CSS -->
+    <form id="form_usuario">
+        <input id="nome"    placeholder="Nome:">    <br>
+        <input id="idade"   placeholder="Idade:">
+        <button type="submit">Salvar</button>
     </form>
+   
+    <!-- Programação:  JavaScript  -->
     <script>
-        document.getElementById('f').addEventListener('submit', async (e) => {
+        document.getElementById('form_usuario').addEventListener('submit', async (e) => {
             e.preventDefault();
-            await fetch("https://sdetbdnklfulxrrltgbo.supabase.co/rest/v1/despesas", {
-                method: "POST",
+            await fetch("https://sdetbdnklfulxrrltgbo.supabase.co/rest/v1/usuarios_simples", {   //SupaBase: API URL + Tabela     
+                method: "POST",                                                                  //HTTP:     Salvar
                 headers: {
-                    "apikey": "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
-                    "Authorization": "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",
-                    "Content-Type": "application/json"
+                    "apikey":        "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",           //SupaBase: API Pública
+                    "Authorization": "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",    //SupaBase: Bearer e ApiPublica
+                    "Content-Type":  "application/json",                                         //Supabase: Dados Json
+                    "Prefer":        "return=minimal"                                            //SupaBase: Evitar Erros
                 },
                 body: JSON.stringify({
-                    descricao: document.getElementById('d').value,
-                    valor: parseFloat(document.getElementById('v').value)
+                    nome:   document.getElementById('nome').value,
+                    idade:  parseInt(document.getElementById('idade').value)
                 })
             });
-            alert("Salvo!");
+            console.log(document.getElementById('nome').value);     //Msg:  No Console Browser (F12)
+            alert(document.getElementById('nome').value);           //Msg:  Janela Pop Up
+            document.getElementById('form_usuario').reset();        //Form: Limpar Campos
         });
     </script>
-</body>
-</html>
-
+</body></html>
