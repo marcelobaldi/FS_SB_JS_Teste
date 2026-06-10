@@ -89,8 +89,8 @@
             
            <div class="mb-3">
                 <select id="forma_pgto" class="form-select">
-                    <option value="1" selected>1 - Débito Bradesco</option>
-                    <option value="2">2 - CC Nubank</option>
+                    <option value="Debito_Bradesco" selected>1 - Débito Bradesco</option>
+                    <option value="CC_Nubank">2 - CC Nubank</option>
                 </select>
            </div>
             
@@ -152,7 +152,8 @@
             });
             console.log(document.getElementById('categoria').value);                            
             console.log( document.getElementById('data').value = `${ano}-${mes}-${dia}` );      
-            document.getElementById('form_usuario').reset();                                    
+            document.getElementById('form_usuario').reset();          
+            alert("Dados Salvos");                          
         });
     </script>
 </body>
