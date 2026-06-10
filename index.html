@@ -1,37 +1,159 @@
-<!DOCTYPE html><html>
-    <head>
-        <meta charset="UTF-8">                                                      <!-- Aceitar Caracteres Especiais   -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">      <!-- Responsivo Celular, Tablet     -->
-        <title>Cadastro Despesas</title>                                            <!-- Título Aba                     -->
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <!-- ESTILO EMBUTIDO DIRETO: NÃO DEPENDE DE INTERNET OU DE LINKS EXTERNOS PARA FORMATAR -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+        #form_usuario {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #dee2e6;
+        }
+        .mb-3 {
+            margin-bottom: 16px;
+        }
+        .form-control, .form-select {
+            display: block;
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 4px rgba(13,110,253,.25);
+        }
+        .btn-primary {
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            vertical-align: middle;
+            cursor: pointer;
+            background-color: #0d6efd;
+            border: 1px solid #0d6efd;
+            padding: 6px 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            width: 100%;
+        }
+        .btn-primary:active {
+            background-color: #0a58ca;
+            border-color: #0a53be;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
         <form id="form_usuario">
-            <input id="nome"    placeholder="Nome:">    <br>
-            <input id="idade"   placeholder="Idade:">
-            <button type="submit">Salvar</button>
+           
+           <div class="mb-3">
+               <input id="data" type="date" class="form-control">
+           </div>
+           
+           <div class="mb-3">
+               <input id="valor" type="number" step="0.01" min="0" placeholder="Valor R$:" class="form-control">
+           </div>
+           
+           <div class="mb-3">
+                <select id="tipo_pgto" class="form-select">
+                    <option value="1" selected>1 - A Vista</option>
+                    <option value="2">2 - A Prazo</option>
+                </select>
+           </div>
+            
+           <div class="mb-3">
+                <select id="forma_pgto" class="form-select">
+                    <option value="1" selected>1 - Débito Bradesco</option>
+                    <option value="2">2 - CC Nubank</option>
+                </select>
+           </div>
+            
+           <div class="mb-3">
+                <select id="categoria" class="form-select">
+                    <option value="1" selected>Alimentação:   Mercado, Rua                     </option>
+                    <option value="2">Locomoção:     Utilização, Manutenção           </option>
+                    <option value="3">Saúde:         Remédio, Perfumaria, Consultas   </option>
+                    <option value="4">Vestimenta:    Roupa, Sapato                    </option>
+                    <option value="5">Diversão:      Lazer, Hobies, Passeios, Jogos   </option>
+                    <option value="6">Moradia:       Aluguel, Água, Luz, Imposto      </option>
+                    <option value="7">Comunicação:   Celular, Internet                </option>
+                    <option value="8">Prof Adm/TI:   Cursos, Equipamentos             </option>
+                    <option value="9">Prof Servic:   Cursos, Equipamentos             </option>
+                    <option value="10">Patrim Menor:  Eletrônicos, EletroDomésticos    </option>
+                    <option value="11">Patrim Maior:  Imóvel, Veículo                  </option>
+                    <option value="12">Proj Espanha:  Viagem, Documentação             </option>
+                </select>
+           </div>
+            
+           <div class="mb-3">
+                <input id="descricao" placeholder="Descrição:" class="form-control">
+           </div>
+           
+           <div class="mb-3">
+                <input id="observacao" placeholder="Observação:" class="form-control">
+           </div>
+           
+           <button type="submit" class="btn-primary">Salvar</button>
         </form>
-    
-        <!-- Programação:  JavaScript  -->
-        <script>
-            document.getElementById('form_usuario').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                await fetch("https://sdetbdnklfulxrrltgbo.supabase.co/rest/v1/usuarios_simples", {   //SupaBase: API URL + Tabela     
-                    method: "POST",                                                                  //HTTP:     Salvar
-                    headers: {
-                        "apikey":        "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",           //SupaBase: API Pública
-                        "Authorization": "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",    //SupaBase: Bearer e ApiPublica
-                        "Content-Type":  "application/json",                                         //Supabase: Dados Json
-                        "Prefer":        "return=minimal"                                            //SupaBase: Evitar Erros
-                    },
-                    body: JSON.stringify({
-                        nome:   document.getElementById('nome').value,
-                        idade:  parseInt(document.getElementById('idade').value)
-                    })
-                });
-                console.log(document.getElementById('nome').value);     //Msg:  No Console Browser (F12)
-                alert(document.getElementById('nome').value);           //Msg:  Janela Pop Up
-                document.getElementById('form_usuario').reset();        //Form: Limpar Campos
+    </div>
+   
+    <script>
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        document.getElementById('data').value = `${ano}-${mes}-${dia}`;
+
+        document.getElementById('form_usuario').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await fetch("https://supabase.co", {   
+                method: "POST",                                                                  
+                headers: {
+                    "apikey":        "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",           
+                    "Authorization": "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",    
+                    "Content-Type":  "application/json",                                         
+                    "Prefer":        "return=minimal"                                            
+                },
+                body: JSON.stringify({
+                    data:        document.getElementById('data').value,
+                    valor:       parseFloat(document.getElementById('valor').value),
+                    tipo_pgto:   document.getElementById('tipo_pgto').value,
+                    forma_pgto:  document.getElementById('forma_pgto').value,
+                    categoria:   document.getElementById('categoria').value,
+                    descricao:   document.getElementById('descricao').value,
+                    observacao:  document.getElementById('observacao').value,
+                })
             });
-        </script>
-    </body>
+            console.log(document.getElementById('categoria').value);                            
+            console.log( document.getElementById('data').value = `${ano}-${mes}-${dia}` );      
+            document.getElementById('form_usuario').reset();                                    
+        });
+    </script>
+</body>
 </html>
