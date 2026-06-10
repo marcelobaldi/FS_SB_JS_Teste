@@ -68,8 +68,13 @@
     </style>
 </head>
 <body>
-
     <div class="container">
+       <!-- Título Principal do Formulário -->
+    <div class="text-center mb-4" style="max-width: 500px; margin: 20px auto 0 auto; font-size: 24px;">
+       Despesas
+    </div> <br>
+      
+      
         <form id="form_usuario">
            
            <div class="mb-3">
@@ -96,18 +101,18 @@
             
            <div class="mb-3">
                 <select id="categoria" class="form-select">
-                    <option value="Alimentacao" selected>Alimentação: Mercado, Rua              </option>
-                    <option value="Locomocao">Locomoção: Utilização, Manutenção                 </option>
-                    <option value="Saude">Saúde: Remédio, Perfumaria, Consultas                 </option>
-                    <option value="Vestimenta">Vestimenta: Roupa, Sapato                        </option>
-                    <option value="Diversao">Diversão: Lazer, Hobies, Passeios, Jogos           </option>
-                    <option value="Moradia">Moradia: Aluguel, Água, Luz, Imposto                </option>
-                    <option value="Comunicacao">Comunicação: Celular, Internet                  </option>
-                    <option value="Prof_Adm_TI">Prof Adm/TI: Cursos, Equipamentos               </option>
-                    <option value="Prof_Servicos">Prof Servic: Cursos, Equipamentos             </option>
-                    <option value="Patrim_Menor">Patrim Menor: Eletrônicos, EletroDomésticos    </option>
-                    <option value="Patrim_Maior">Patrim Maior: Imóvel, Veículo                  </option>
-                    <option value="Proj_Espanha">Proj Espanha: Viagem, Documentação             </option>
+                    <option value="Alimentacao" selected>Alimentação              </option>
+                    <option value="Locomocao">Locomoção                           </option>
+                    <option value="Saude">Saúde                                   </option>
+                    <option value="Vestimenta">Roupa, Sapato                      </option>
+                    <option value="Diversao">Lazer, Passeios, Jogos               </option>
+                    <option value="Moradia">Moradia: Aluguel, Água, Luz           </option>
+                    <option value="Comunicacao">Comunicação: Celular, Internet    </option>
+                    <option value="Prof_Adm_TI">Prof Adm/TI: Curso, Equip         </option>
+                    <option value="Prof_Servicos">Prof Servic: Curso, Equip       </option>
+                    <option value="Patrim_Menor">Patrim Menor: Eletrônicos, ..    </option>
+                    <option value="Patrim_Maior">Patrim Maior: Imóvel, Veículo    </option>
+                    <option value="Proj_Espanha">Proj Espanha: Viagem, Doc, ...   </option>
                 </select>
            </div>
             
@@ -132,29 +137,38 @@
 
         document.getElementById('form_usuario').addEventListener('submit', async (e) => {
             e.preventDefault();
-            await fetch("https://sdetbdnklfulxrrltgbo.supabase.co/rest/v1/usuarios_simples", {   //SupaBase: API URL + Tabela   
-                method: "POST",                                                                  
-                headers: {
-                    "apikey":        "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",           
-                    "Authorization": "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",    
-                    "Content-Type":  "application/json",                                         
-                    "Prefer":        "return=minimal"                                            
-                },
-                body: JSON.stringify({
-                    data:        document.getElementById('data').value,
-                    valor:       parseFloat(document.getElementById('valor').value),
-                    tipo_pgto:   document.getElementById('tipo_pgto').value,
-                    forma_pgto:  document.getElementById('forma_pgto').value,
-                    categoria:   document.getElementById('categoria').value,
-                    descricao:   document.getElementById('descricao').value,
-                    observacao:  document.getElementById('observacao').value,
-                })
-            });
+             const resposta = await fetch("https://sdetbdnklfulxrrltgbo.supabase.co/rest/v1/usuarios_simples", {   //SupaBase: API URL + Tabela   
+                    method: "POST",                                                                  
+                    headers: {
+                        "apikey":        "sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",           
+                        "Authorization": "Bearer sb_publishable_mkWlKoVxlEuw0CtaQnrPiQ_0nonA5pQ",    
+                        "Content-Type":  "application/json",                                         
+                        "Prefer":        "return=minimal"                                            
+                    },
+                    body: JSON.stringify({
+                        data:        document.getElementById('data').value,
+                        valor:       parseFloat(document.getElementById('valor').value),
+                        tipo_pgto:   document.getElementById('tipo_pgto').value,
+                        forma_pgto:  document.getElementById('forma_pgto').value,
+                        categoria:   document.getElementById('categoria').value,
+                        descricao:   document.getElementById('descricao').value,
+                        observacao:  document.getElementById('observacao').value,
+                    })
+                });
+
             console.log(document.getElementById('categoria').value);                            
             console.log( document.getElementById('data').value = `${ano}-${mes}-${dia}` );      
-            document.getElementById('form_usuario').reset();          
-            alert("Dados Salvos");                          
+            
+            // VERIFICAÇÃO REAL: O status 201 significa que o registro foi criado com sucesso na nuvem
+            if (resposta.status === 201 || resposta.status === 200) {
+                alert("Salvo com Sucesso!");
+                document.getElementById('form_usuario').reset();                                    
+                document.getElementById('data').value = `${ano}-${mes}-${dia}`;
+            } else {
+                alert("Erro ao salvar! O banco de dados rejeitou o comando.");
+            }                   
         });
+
     </script>
 </body>
 </html>
